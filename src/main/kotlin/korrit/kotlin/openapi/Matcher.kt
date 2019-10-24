@@ -2,9 +2,9 @@ package korrit.kotlin.openapi
 
 typealias Errors = MutableList<String>
 
-open class OpenApiValidator {
+open class OpenApiMatcher {
 
-    fun validate(doc: OpenApi, source: OpenApi): Errors {
+    fun match(doc: OpenApi, source: OpenApi): Errors {
         val errors: Errors = mutableListOf()
 
         if (doc.version != source.version) {
