@@ -230,6 +230,7 @@ class Schema(
         val deprecated: Boolean,
         val nullable: Boolean,
         val format: String?,
+        val default: Any?,
         val uniqueItems: Boolean?,
         val required: List<String>?,
         val properties: List<Property>?,
@@ -257,6 +258,10 @@ class Schema(
             format?.let {
                 newLine()
                 append("format: $it")
+            }
+            default?.let {
+                newLine()
+                append("default: $it")
             }
             if (uniqueItems == true) {
                 newLine()

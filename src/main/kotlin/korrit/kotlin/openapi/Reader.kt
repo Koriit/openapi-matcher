@@ -193,6 +193,7 @@ open class OpenApiReader(private val file: InputStream) {
         val deprecated = schema.getAs("deprecated", false)
         val nullable = schema.getAs("nullable", false)
         val format = schema.getAs<String?>("format")
+        val default = schema.getAs<Any?>("default")
         val uniqueItems = schema.getAs<Boolean?>("uniqueItems")
         val required = schema.getAs<List<String>?>("required")
         val properties: List<Property>? = schema.getAs<YAML?>("properties")?.let { readProperties(it) }
@@ -200,7 +201,7 @@ open class OpenApiReader(private val file: InputStream) {
         val items: Schema? = schema.getAs<YAML?>("items")?.let { readSchema(it) }
         val enum = schema.getAs<List<String>?>("enum")
 
-        return Schema(title, type, deprecated, nullable, format, uniqueItems, required, properties, additionalProperties, items, enum)
+        return Schema(title, type, deprecated, nullable, format, default, uniqueItems, required, properties, additionalProperties, items, enum)
     }
 
     protected fun readProperties(properties: YAML): List<Property> {

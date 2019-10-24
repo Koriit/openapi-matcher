@@ -265,6 +265,10 @@ open class OpenApiMatcher {
             addError("Doc's format doesn't match source's: ${doc.format} != ${source.format}")
         }
 
+        if (doc.default?.toString() != source.default?.toString()) {
+            addError("Doc's default doesn't match source's: ${doc.default} != ${source.default}")
+        }
+
         if (doc.uniqueItems != source.uniqueItems) {
             addError("Doc's uniqueItems doesn't match source's: ${doc.uniqueItems} != ${source.uniqueItems}")
         }
