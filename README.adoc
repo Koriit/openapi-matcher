@@ -1,3 +1,10 @@
 = OpenApi Matcher
 
+image:https://www.travis-ci.org/Koriit/openapi-matcher.svg?branch=master["Build Status", link="https://www.travis-ci.org/Koriit/openapi-matcher"]
+image:https://www.codefactor.io/repository/github/koriit/openapi-matcher/badge[CodeFactor,link=https://www.codefactor.io/repository/github/koriit/openapi-matcher]
+image:https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg[ktlint,link=https://ktlint.github.io/]
+
+image:https://api.bintray.com/packages/koriit/kotlin/openapi-matcher/images/download.svg[Download, link=https://bintray.com/koriit/kotlin/openapi-matcher/_latestVersion]
+image:https://img.shields.io/github/license/koriit/openapi-matcher[GitHub]
+
 OpenApi matcher for kotlin, allows to compare 2 specifications against each other.
