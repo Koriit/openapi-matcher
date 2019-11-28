@@ -9,9 +9,9 @@ private fun StringBuilder.newLine() = appendln()
 //
 
 class OpenApi(
-        val version: String = "3.0.2",
-        val components: Components?,
-        val paths: List<Path>
+    val version: String = "3.0.2",
+    val components: Components?,
+    val paths: List<Path>
 ) {
 
     override fun toString(): String {
@@ -28,8 +28,8 @@ class OpenApi(
 }
 
 class Components(
-        val schemas: Map<String, Schema>?,
-        val headers: Map<String, Header>?
+    val schemas: Map<String, Schema>?,
+    val headers: Map<String, Header>?
 ) {
 
     override fun toString(): String {
@@ -65,8 +65,8 @@ class Components(
 }
 
 class Path(
-        val path: String,
-        val operations: MutableList<Operation> = mutableListOf()
+    val path: String,
+    val operations: MutableList<Operation> = mutableListOf()
 ) {
 
     override fun toString(): String {
@@ -81,11 +81,11 @@ class Path(
 }
 
 class Operation(
-        val method: String,
-        val responses: List<Response>,
-        val requestBody: RequestBody?,
-        val parameters: List<Parameter>?,
-        val deprecated: Boolean
+    val method: String,
+    val responses: List<Response>,
+    val requestBody: RequestBody?,
+    val parameters: List<Parameter>?,
+    val deprecated: Boolean
 ) {
 
     override fun toString(): String {
@@ -122,12 +122,12 @@ class Operation(
 }
 
 class Parameter(
-        val name: String,
-        val `in`: String,
-        val required: Boolean,
-        val deprecated: Boolean,
-        val description: String?,
-        val schema: Schema
+    val name: String,
+    val `in`: String,
+    val required: Boolean,
+    val deprecated: Boolean,
+    val description: String?,
+    val schema: Schema
 ) {
 
     override fun toString(): String {
@@ -154,10 +154,10 @@ class Parameter(
 }
 
 class Header(
-        val name: String,
-        val required: Boolean,
-        val deprecated: Boolean,
-        val schema: Schema
+    val name: String,
+    val required: Boolean,
+    val deprecated: Boolean,
+    val schema: Schema
 ) {
 
     override fun toString(): String {
@@ -178,10 +178,10 @@ class Header(
 }
 
 class Response(
-        val code: String,
-        val content: List<MediaType>,
-        val description: String,
-        val headers: List<Header>?
+    val code: String,
+    val content: List<MediaType>?,
+    val description: String,
+    val headers: List<Header>?
 ) {
 
     override fun toString(): String {
@@ -200,19 +200,21 @@ class Response(
                 }
                 append(out.toString().prependIndent(OPENAPI_INDENT))
             }
-            newLine()
-            append("content:")
-            content.forEach {
+            content?.let {
                 newLine()
-                append(it.toString().prependIndent(OPENAPI_INDENT))
+                append("content:")
+                content.forEach {
+                    newLine()
+                    append(it.toString().prependIndent(OPENAPI_INDENT))
+                }
             }
         }.toString().prependIndent(OPENAPI_INDENT)
     }
 }
 
 class MediaType(
-        val contentType: String,
-        val schema: Schema
+    val contentType: String,
+    val schema: Schema
 ) {
 
     override fun toString(): String {
@@ -225,18 +227,18 @@ class MediaType(
 }
 
 class Schema(
-        val title: String?,
-        val type: String,
-        val deprecated: Boolean,
-        val nullable: Boolean,
-        val format: String?,
-        val default: Any?,
-        val uniqueItems: Boolean?,
-        val required: List<String>?,
-        val properties: List<Property>?,
-        val additionalProperties: Schema?,
-        val items: Schema?,
-        val enum: List<String>?
+    val title: String?,
+    val type: String,
+    val deprecated: Boolean,
+    val nullable: Boolean,
+    val format: String?,
+    val default: Any?,
+    val uniqueItems: Boolean?,
+    val required: List<String>?,
+    val properties: List<Property>?,
+    val additionalProperties: Schema?,
+    val items: Schema?,
+    val enum: List<String>?
 ) {
 
     override fun toString(): String {
@@ -298,8 +300,8 @@ class Schema(
 }
 
 class Property(
-        val name: String,
-        val schema: Schema
+    val name: String,
+    val schema: Schema
 ) {
 
     override fun toString(): String {
@@ -311,8 +313,8 @@ class Property(
 }
 
 class RequestBody(
-        val content: List<MediaType>,
-        val required: Boolean
+    val content: List<MediaType>,
+    val required: Boolean
 ) {
 
     override fun toString(): String {

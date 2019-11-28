@@ -1,7 +1,7 @@
 package korrit.kotlin.openapi
 
-import org.yaml.snakeyaml.Yaml
 import java.io.InputStream
+import org.yaml.snakeyaml.Yaml
 
 private typealias YAML = Map<String, Any>
 
@@ -23,10 +23,8 @@ open class OpenApiReader(private val file: InputStream) {
             val openapi: YAML = Yaml().load(file)
 
             return readOpenApi(openapi)
-
         } catch (e: ReaderException) {
             throw e
-
         } catch (e: Exception) {
             throw ReaderException(e.message ?: "", e)
         }
@@ -209,5 +207,4 @@ open class OpenApiReader(private val file: InputStream) {
             Property(name, readSchema(schema as YAML))
         }
     }
-
 }

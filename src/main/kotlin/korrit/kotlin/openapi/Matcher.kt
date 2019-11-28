@@ -34,7 +34,6 @@ open class OpenApiMatcher {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In path ${source.path}: $error")
 
-
         val unmatchedOperations = doc.operations.map { it.method }.toMutableSet()
         source.operations.forEach { operation ->
             val operationDoc = doc.operations.find { it.method == operation.method }
@@ -68,10 +67,8 @@ open class OpenApiMatcher {
         // requestBody
         if (doc.requestBody == null && source.requestBody != null) {
             addError("Doc is missing requestBody definition")
-
         } else if (doc.requestBody != null && source.requestBody == null) {
             addError("There is unknown requestBody in the doc")
-
         } else if (doc.requestBody != null && source.requestBody != null) {
             validateRequestBody(doc.requestBody, source.requestBody).forEach {
                 addError(it)
@@ -81,10 +78,8 @@ open class OpenApiMatcher {
         // parameters
         if (doc.parameters == null && source.parameters != null) {
             addError("Doc is entirely missing parameters definition")
-
         } else if (doc.parameters != null && source.parameters == null) {
             addError("Doc has unknown parameters definition")
-
         } else if (doc.parameters != null && source.parameters != null) {
             val unmatchedParameters = doc.parameters.associateBy { it.name }.toMutableMap()
             source.parameters.forEach { param ->
@@ -162,9 +157,9 @@ open class OpenApiMatcher {
         }
 
         // content
-        val unmatchedContents = doc.content.map { it.contentType }.toMutableSet()
-        source.content.forEach { content ->
-            val contentDoc = doc.content.find { it.contentType == content.contentType }
+        val unmatchedContents = doc.content?.map { it.contentType }?.toMutableSet() ?: mutableSetOf()
+        source.content?.forEach { content ->
+            val contentDoc = doc.content?.find { it.contentType == content.contentType }
             if (contentDoc == null) {
                 addError("Cannot find doc for content: ${content.contentType}")
                 return@forEach
@@ -183,10 +178,8 @@ open class OpenApiMatcher {
         // headers
         if (doc.headers == null && source.headers != null) {
             addError("Doc is entirely missing headers definition")
-
         } else if (doc.headers != null && source.headers == null) {
             addError("Doc has unknown headers definition")
-
         } else if (doc.headers != null && source.headers != null) {
             val unmatchedHeaders = doc.headers.associateBy { it.name }.toMutableMap()
             source.headers.forEach { header ->
@@ -287,10 +280,8 @@ open class OpenApiMatcher {
 
         if (doc.properties == null && source.properties != null) {
             addError("Doc is entirely missing properties definition")
-
         } else if (doc.properties != null && source.properties == null) {
             addError("Doc has unknown properties definition")
-
         } else if (doc.properties != null && source.properties != null) {
             validateProperties(doc.properties, source.properties).forEach {
                 addError("In properties: $it")
@@ -299,10 +290,8 @@ open class OpenApiMatcher {
 
         if (doc.additionalProperties == null && source.additionalProperties != null) {
             addError("Doc is entirely missing additionalProperties definition")
-
         } else if (doc.additionalProperties != null && source.additionalProperties == null) {
             addError("Doc has unknown additionalProperties definition")
-
         } else if (doc.additionalProperties != null && source.additionalProperties != null) {
             validateSchema(doc.additionalProperties, source.additionalProperties).forEach {
                 addError("In additionalProperties: $it")
@@ -311,10 +300,8 @@ open class OpenApiMatcher {
 
         if (doc.items == null && source.items != null) {
             addError("Doc is entirely missing items definition")
-
         } else if (doc.items != null && source.items == null) {
             addError("Doc has unknown items definition")
-
         } else if (doc.items != null && source.items != null) {
             validateSchema(doc.items, source.items).forEach {
                 addError("In items: $it")
@@ -345,7 +332,6 @@ open class OpenApiMatcher {
             val src = unmatched.remove(prop.name)
             if (src == null) {
                 addError("Unknown property: ${prop.name}")
-
             } else {
                 validateProperty(prop, src).forEach {
                     addError(it)
