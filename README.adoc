@@ -38,7 +38,7 @@ The general idea is to validate your OpenAPI specification against your code ins
 val source: OpenAPI = ... // Analyze your code
 
 LOG.info("Reading OpenAPI spec...")
-val doc: OpenAPI = OpenAPIReader(javaClass.getResourceAsStream("/openapi.yaml")).load()
+val doc: OpenAPI = OpenAPIReader().load({}.javaClass.getResourceAsStream("/openapi.yaml"))
 
 LOG.info("Validating spec...")
 val errors = OpenAPIMatcher().match(doc, source)
