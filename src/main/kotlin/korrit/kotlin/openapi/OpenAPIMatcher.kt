@@ -1,14 +1,33 @@
 package korrit.kotlin.openapi
 
-typealias Errors = MutableList<String>
+import korrit.kotlin.openapi.model.Header
+import korrit.kotlin.openapi.model.MediaType
+import korrit.kotlin.openapi.model.OpenAPI
+import korrit.kotlin.openapi.model.Operation
+import korrit.kotlin.openapi.model.Parameter
+import korrit.kotlin.openapi.model.Path
+import korrit.kotlin.openapi.model.Property
+import korrit.kotlin.openapi.model.RequestBody
+import korrit.kotlin.openapi.model.Response
+import korrit.kotlin.openapi.model.Schema
 
-open class OpenApiMatcher {
+private typealias Errors = MutableList<String>
 
-    fun match(doc: OpenApi, source: OpenApi): Errors {
+/**
+ *  OpenAPI Matcher to check differences between specifications.
+ */
+open class OpenAPIMatcher {
+
+    /**
+     * Matches 2 OpenAPI objects and returns the list of significant differences as errors.
+     *
+     * Significant difference is understood as divergence that leads or may lead to compatibility break.
+     */
+    open fun match(doc: OpenAPI, source: OpenAPI): List<String> {
         val errors: Errors = mutableListOf()
 
         if (doc.version != source.version) {
-            errors.add("Doc's OpenApi version doesn't match source's: ${doc.version} != ${source.version}")
+            errors.add("Doc's OpenAPI version doesn't match source's: ${doc.version} != ${source.version}")
         }
 
         val unmatchedPaths = doc.paths.map { it.path }.toMutableSet()
@@ -30,7 +49,7 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validatePath(doc: Path, source: Path): Errors {
+    protected open fun validatePath(doc: Path, source: Path): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In path ${source.path}: $error")
 
@@ -55,7 +74,8 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateOperation(doc: Operation, source: Operation): Errors {
+    @Suppress("ComplexMethod")
+    protected open fun validateOperation(doc: Operation, source: Operation): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In operation ${source.method}: $error")
 
@@ -120,7 +140,7 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateParameter(doc: Parameter, source: Parameter): Errors {
+    protected open fun validateParameter(doc: Parameter, source: Parameter): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In parameter ${source.name}: $error")
 
@@ -128,8 +148,8 @@ open class OpenApiMatcher {
             addError("Doc's name doesn't match source's: ${doc.name} != ${source.name}")
         }
 
-        if (doc.`in` != source.`in`) {
-            addError("Doc's 'in' doesn't match source's: ${doc.`in`} != ${source.`in`}")
+        if (doc.inside != source.inside) {
+            addError("Doc's 'in' doesn't match source's: ${doc.inside} != ${source.inside}")
         }
 
         if (doc.required != source.required) {
@@ -147,7 +167,8 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateResponse(doc: Response, source: Response): Errors {
+    @Suppress("ComplexMethod")
+    protected open fun validateResponse(doc: Response, source: Response): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In response ${source.code}: $error")
 
@@ -202,7 +223,7 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateHeader(doc: Header, source: Header): Errors {
+    protected open fun validateHeader(doc: Header, source: Header): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In header ${source.name}: $error")
 
@@ -225,9 +246,19 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateMediaType(doc: MediaType, source: MediaType): Errors {
+    protected open fun validateMediaType(doc: MediaType, source: MediaType): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In content ${source.contentType}: $error")
+
+        if (doc.schema == null || source.schema == null) {
+            if (doc.schema != null && source.schema == null) {
+                addError("Doc has unknown schema")
+            } else if (doc.schema == null && source.schema != null) {
+                addError("Doc is missing schema")
+            }
+
+            return errors
+        }
 
         validateSchema(doc.schema, source.schema).forEach {
             addError("In schema: $it")
@@ -236,7 +267,8 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateSchema(doc: Schema, source: Schema): Errors {
+    @Suppress("ComplexMethod", "LongMethod")
+    protected open fun validateSchema(doc: Schema, source: Schema): List<String> {
         val errors: Errors = mutableListOf()
 
         fun addError(error: String) = errors.add(error)
@@ -323,7 +355,7 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateProperties(doc: List<Property>, source: List<Property>): Errors {
+    protected open fun validateProperties(doc: List<Property>, source: List<Property>): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add(error)
 
@@ -345,7 +377,7 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateProperty(doc: Property, source: Property): Errors {
+    protected open fun validateProperty(doc: Property, source: Property): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In property ${source.name}: $error")
 
@@ -356,7 +388,7 @@ open class OpenApiMatcher {
         return errors
     }
 
-    protected fun validateRequestBody(doc: RequestBody, source: RequestBody): Errors {
+    protected open fun validateRequestBody(doc: RequestBody, source: RequestBody): List<String> {
         val errors: Errors = mutableListOf()
         fun addError(error: String) = errors.add("In requestBody: $error")
 

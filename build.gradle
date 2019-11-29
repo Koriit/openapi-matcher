@@ -102,8 +102,8 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
             pom {
-                name = "OpenApi Matcher"
-                description = "OpenApi matcher for kotlin, allows to compare 2 specifications against each other"
+                name = "OpenAPI Matcher"
+                description = "OpenAPI matcher for kotlin, allows to compare 2 specifications against each other"
                 url = "https://github.com/Koriit/openapi-matcher"
                 licenses {
                     license {

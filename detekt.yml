@@ -15,9 +15,14 @@ comments:
   UndocumentedPublicProperty:
     active: true
 
-performance:
-  SpreadOperator:
-    excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
+complexity:
+  ComplexMethod:
+    ignoreNestingFunctions: false
+    nestingFunctions: let
+  TooManyFunctions:
+    excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt,**/OpenAPIMatcher.kt,**/OpenAPIReader.kt"
+  NestedBlockDepth:
+    threshold: 5
 
 formatting:
   active: false

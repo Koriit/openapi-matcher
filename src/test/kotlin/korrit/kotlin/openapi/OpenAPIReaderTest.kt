@@ -2,11 +2,11 @@ package korrit.kotlin.openapi
 
 import org.junit.jupiter.api.Test
 
-internal class OpenApiReaderTest {
+internal class OpenAPIReaderTest {
 
     @Test
     fun testReading() {
-        val reader = OpenApiReader()
+        val reader = OpenAPIReader()
 
         mapOf(
             "petstore" to "/petstore.yaml",
