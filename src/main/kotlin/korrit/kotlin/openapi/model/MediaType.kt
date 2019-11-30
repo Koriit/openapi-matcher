@@ -11,11 +11,13 @@ class MediaType(
     val contentType: String,
     val schema: Schema?
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = "$contentType:" + StringBuilder().apply {
         schema?.let {
             appendln()
-            appendln("schema:")
+            append("schema:")
             append(schema.toString().prependIndent(YAML_INDENT))
         }
     }.toString().prependIndent(YAML_INDENT)

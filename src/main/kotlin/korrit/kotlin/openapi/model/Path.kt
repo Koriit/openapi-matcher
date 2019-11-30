@@ -11,7 +11,9 @@ class Path(
     val path: String,
     val operations: MutableList<Operation> = mutableListOf()
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = StringBuilder().apply {
         append("$path:")
         operations.forEach {

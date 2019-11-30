@@ -13,7 +13,9 @@ class Header(
     val deprecated: Boolean,
     val schema: Schema
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = "$name:" + StringBuilder().apply {
         if (required) {
             appendln()
@@ -24,7 +26,7 @@ class Header(
             append("deprecated: true")
         }
         appendln()
-        appendln("schema:")
+        append("schema:")
         append(schema.toString().prependIndent(YAML_INDENT))
     }.toString().prependIndent(YAML_INDENT)
 }

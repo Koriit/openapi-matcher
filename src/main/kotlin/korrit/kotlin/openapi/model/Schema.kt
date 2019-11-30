@@ -21,9 +21,14 @@ class Schema(
     val items: Schema?,
     val enum: List<String>?
 ) {
-
+    /**
+     * Returns YAML representation.
+     *
+     * Starts with new line in the beginning.
+     */
     override fun toString(): String = StringBuilder().apply {
         title?.let {
+            appendln()
             append("title: $it")
         }
         type?.let {
@@ -65,12 +70,12 @@ class Schema(
         }
         additionalProperties?.let {
             appendln()
-            appendln("additionalProperties:")
+            append("additionalProperties:")
             append(it.toString().prependIndent(YAML_INDENT))
         }
         items?.let {
             appendln()
-            appendln("items:")
+            append("items:")
             append(it.toString().prependIndent(YAML_INDENT))
         }
         enum?.let {

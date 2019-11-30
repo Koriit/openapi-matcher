@@ -15,7 +15,9 @@ class Parameter(
     val description: String?,
     val schema: Schema
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = StringBuilder().apply {
         appendln("name: $name")
         append("in: $inside")
@@ -32,7 +34,7 @@ class Parameter(
             append("description: $it")
         }
         appendln()
-        appendln("schema:")
+        append("schema:")
         append(schema.toString().prependIndent(YAML_INDENT))
     }.toString()
 }

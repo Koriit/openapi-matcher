@@ -9,9 +9,11 @@ class Property(
     val name: String,
     val schema: Schema
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = StringBuilder().apply {
-        appendln("$name:")
+        append("$name:")
         append(schema.toString().prependIndent(YAML_INDENT))
     }.toString()
 }

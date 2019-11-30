@@ -11,7 +11,9 @@ class Components(
     val schemas: Map<String, Schema>?,
     val headers: Map<String, Header>?
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = "components:" + StringBuilder().apply {
         schemas?.let {
             appendln()
@@ -20,7 +22,7 @@ class Components(
             schemas.forEach { (name, schema) ->
                 out.apply {
                     appendln()
-                    appendln("$name:")
+                    append("$name:")
                     append(schema.toString().prependIndent(YAML_INDENT))
                 }
             }

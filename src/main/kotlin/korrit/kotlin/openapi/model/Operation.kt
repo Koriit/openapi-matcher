@@ -14,7 +14,9 @@ class Operation(
     val parameters: List<Parameter>?,
     val deprecated: Boolean
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = "$method:" + StringBuilder().apply {
         if (deprecated) {
             appendln()

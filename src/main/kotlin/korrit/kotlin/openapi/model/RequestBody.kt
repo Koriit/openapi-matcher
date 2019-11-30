@@ -11,7 +11,9 @@ class RequestBody(
     val content: List<MediaType>,
     val required: Boolean
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = StringBuilder().apply {
         if (required) {
             append("required: true")

@@ -12,10 +12,12 @@ class OpenAPI(
     val components: Components?,
     val paths: List<Path>
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = StringBuilder().apply {
         appendln("openapi: $version")
-        appendln("paths:")
+        append("paths:")
         paths.forEach {
             appendln()
             appendln(it.toString().prependIndent(YAML_INDENT))

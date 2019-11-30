@@ -13,7 +13,9 @@ class Response(
     val description: String,
     val headers: List<Header>?
 ) {
-
+    /**
+     * Returns YAML representation.
+     */
     override fun toString(): String = "\"$code\":" + StringBuilder().apply {
         appendln()
         append("description: $description")
