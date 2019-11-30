@@ -30,8 +30,8 @@ private fun <T : Any> YAML.getAs(elem: String, default: T): T = get(elem) as T? 
  */
 open class OpenAPIReader {
 
-    private var schemas: Map<String, Schema> = emptyMap()
-    private var headers: Map<String, Header> = emptyMap()
+    protected open var schemas: Map<String, Schema> = emptyMap()
+    protected open var headers: Map<String, Header> = emptyMap()
 
     /**
      * Accepts YAML file and returns OpenAPI object.
@@ -51,6 +51,15 @@ open class OpenAPIReader {
         } catch (e: Exception) {
             throw ReaderException(e.message ?: "", e)
         }
+    }
+
+    /**
+     * Accepts YAML string and returns OpenAPI object.
+     *
+     * @throws ReaderException in case of any failure
+     */
+    open fun load(yaml: String): OpenAPI {
+        return load(yaml.byteInputStream())
     }
 
     protected open fun readOpenAPI(openapi: YAML): OpenAPI {
