@@ -6,17 +6,17 @@ internal class OpenAPIReaderTest {
 
     @Test
     fun testReading() {
-        val reader = OpenAPIReader()
-
         mapOf(
-            "petstore" to "/petstore.yaml",
-            "petstore-expanded" to "/petstore-expanded.yaml",
-            "uspto" to "/uspto.yaml",
-            "api-with-examples" to "/api-with-examples.yaml",
-            "link-example" to "/link-example.yaml",
-            "callback-example" to "/callback-example.yaml"
+            "petstore" to "/examples/petstore.yaml",
+            "petstore-expanded" to "/examples/petstore-expanded.yaml",
+            "uspto" to "/examples/uspto.yaml",
+            "api-with-examples" to "/examples/api-with-examples.yaml",
+            "link-example" to "/examples/link-example.yaml",
+            "callback-example" to "/examples/callback-example.yaml",
+            "headers" to "/headers.yaml",
+            "unknown-method" to "/unknown-method.yaml"
         ).testCases {
-            reader.load({}.javaClass.getResourceAsStream(this))
+            OpenAPIReader().load({}.javaClass.getResourceAsStream(this))
         }
     }
 }

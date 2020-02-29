@@ -16,17 +16,28 @@ class Header(
     /**
      * Returns YAML representation.
      */
-    override fun toString(): String = "$name:" + StringBuilder().apply {
-        if (required) {
-            appendln()
-            append("required: true")
+    override fun toString(): String {
+        val spec = StringBuilder().apply {
+            if (required) {
+                appendln()
+                append("required: true")
+            }
+            if (deprecated) {
+                appendln()
+                append("deprecated: true")
+            }
+            val schemaSpec = schema.toString()
+            if (schemaSpec.isNotBlank()) {
+                appendln()
+                append("schema:")
+                append(schemaSpec.prependIndent(YAML_INDENT))
+            }
         }
-        if (deprecated) {
-            appendln()
-            append("deprecated: true")
+
+        if (spec.isBlank()) {
+            return "$name: {}"
+        } else {
+            return "$name:" + spec.toString().prependIndent(YAML_INDENT)
         }
-        appendln()
-        append("schema:")
-        append(schema.toString().prependIndent(YAML_INDENT))
-    }.toString().prependIndent(YAML_INDENT)
+    }
 }

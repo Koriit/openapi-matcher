@@ -1,0 +1,13 @@
+openapi: "3.0.0"
+info:
+  title: unknown method
+  version: 1.0.0
+  license:
+    name: MIT
+paths:
+  /:
+    unknown:
+      responses:
+        '200':
+          description: A paged array of pets
+

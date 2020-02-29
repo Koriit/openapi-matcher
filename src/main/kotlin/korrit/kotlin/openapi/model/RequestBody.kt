@@ -20,9 +20,9 @@ class RequestBody(
             appendln()
         }
         append("content:")
-        content.forEach {
+        for (media in content) {
             appendln()
-            append(it.toString().prependIndent(YAML_INDENT))
+            append(media.toString().prependIndent(YAML_INDENT))
         }
     }.toString()
 }

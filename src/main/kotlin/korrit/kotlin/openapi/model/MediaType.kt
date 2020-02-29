@@ -14,11 +14,22 @@ class MediaType(
     /**
      * Returns YAML representation.
      */
-    override fun toString(): String = "$contentType:" + StringBuilder().apply {
-        schema?.let {
-            appendln()
-            append("schema:")
-            append(schema.toString().prependIndent(YAML_INDENT))
+    override fun toString(): String {
+        val spec = StringBuilder().apply {
+            schema?.let {
+                val schemaSpec = schema.toString()
+                if (schemaSpec.isNotBlank()) {
+                    appendln()
+                    append("schema:")
+                    append(schemaSpec.prependIndent(YAML_INDENT))
+                }
+            }
         }
-    }.toString().prependIndent(YAML_INDENT)
+
+        if (spec.isBlank()) {
+            return "$contentType: {}"
+        } else {
+            return "$contentType:" + spec.toString().prependIndent(YAML_INDENT)
+        }
+    }
 }

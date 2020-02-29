@@ -5,7 +5,7 @@ fun <T> List<T>.testCases(test: T.() -> Unit) {
         try {
             test(case)
         } catch (e: Throwable) {
-            throw AssertionError("Case $index failed", e)
+            throw AssertionError("Case ${index+1} failed", e)
         }
     }
 }

@@ -14,32 +14,40 @@ class Components(
     /**
      * Returns YAML representation.
      */
-    override fun toString(): String = "components:" + StringBuilder().apply {
-        schemas?.let {
-            appendln()
-            append("schemas:")
-            val out = StringBuilder()
-            schemas.forEach { (name, schema) ->
-                out.apply {
-                    appendln()
-                    append("$name:")
-                    append(schema.toString().prependIndent(YAML_INDENT))
+    override fun toString(): String {
+        val spec = StringBuilder().apply {
+            schemas?.let {
+                appendln()
+                append("schemas:")
+                val out = StringBuilder()
+                for ((name, schema) in schemas) {
+                    out.apply {
+                        appendln()
+                        append("$name:")
+                        append(schema.toString().prependIndent(YAML_INDENT))
+                    }
                 }
+                append(out.toString().prependIndent(YAML_INDENT))
             }
-            append(out.toString().prependIndent(YAML_INDENT))
+
+            headers?.let {
+                appendln()
+                append("headers:")
+                val out = StringBuilder()
+                for ((_, header) in headers) {
+                    out.apply {
+                        appendln()
+                        append(header.toString())
+                    }
+                }
+                append(out.toString().prependIndent(YAML_INDENT))
+            }
         }
 
-        headers?.let {
-            appendln()
-            append("headers:")
-            val out = StringBuilder()
-            headers.forEach { (_, header) ->
-                out.apply {
-                    appendln()
-                    append(header.toString())
-                }
-            }
-            append(out.toString().prependIndent(YAML_INDENT))
+        if (spec.isBlank()) {
+            return "components: {}"
+        } else {
+            return "components:" + spec.toString().prependIndent(YAML_INDENT)
         }
-    }.toString().prependIndent(YAML_INDENT)
+    }
 }

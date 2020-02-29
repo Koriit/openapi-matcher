@@ -16,28 +16,33 @@ class Response(
     /**
      * Returns YAML representation.
      */
-    override fun toString(): String = "\"$code\":" + StringBuilder().apply {
-        appendln()
-        append("description: $description")
-        headers?.let {
+    override fun toString(): String {
+        val spec = StringBuilder().apply {
             appendln()
-            append("headers:")
-            val out = StringBuilder()
-            headers.forEach {
-                out.apply {
+            appendln("description: >-")
+            append(description.prependIndent(YAML_INDENT))
+            headers?.let {
+                appendln()
+                append("headers:")
+                val out = StringBuilder()
+                for (header in headers) {
+                    out.apply {
+                        appendln()
+                        append(header.toString())
+                    }
+                }
+                append(out.toString().prependIndent(YAML_INDENT))
+            }
+            content?.let {
+                appendln()
+                append("content:")
+                for (media in content) {
                     appendln()
-                    append(it.toString())
+                    append(media.toString().prependIndent(YAML_INDENT))
                 }
             }
-            append(out.toString().prependIndent(YAML_INDENT))
         }
-        content?.let {
-            appendln()
-            append("content:")
-            content.forEach {
-                appendln()
-                append(it.toString().prependIndent(YAML_INDENT))
-            }
-        }
-    }.toString().prependIndent(YAML_INDENT)
+
+        return "\"$code\":" + spec.toString().prependIndent(YAML_INDENT)
+    }
 }

@@ -9,16 +9,16 @@ import korrit.kotlin.openapi.YAML_INDENT
  */
 class Path(
     val path: String,
-    val operations: MutableList<Operation> = mutableListOf()
+    val operations: List<Operation>
 ) {
     /**
      * Returns YAML representation.
      */
     override fun toString(): String = StringBuilder().apply {
         append("$path:")
-        operations.forEach {
+        for(operation in operations) {
             appendln()
-            append(it.toString().prependIndent(YAML_INDENT))
+            append(operation.toString().prependIndent(YAML_INDENT))
         }
     }.toString()
 }

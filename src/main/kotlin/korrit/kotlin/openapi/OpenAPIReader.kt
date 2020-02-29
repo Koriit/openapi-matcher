@@ -2,6 +2,7 @@
 
 package korrit.kotlin.openapi
 
+import koriit.kotlin.slf4j.logger
 import java.io.InputStream
 import korrit.kotlin.openapi.exceptions.ReaderException
 import korrit.kotlin.openapi.exceptions.UnknownRef
@@ -29,6 +30,8 @@ private fun <T : Any> YAML.getAs(elem: String, default: T): T = get(elem) as T? 
  * This reader holds internal state for resolution of references and thus it is not thread safe(NTS).
  */
 open class OpenAPIReader {
+
+    private val log = logger {}
 
     protected open var schemas: Map<String, Schema> = emptyMap()
     protected open var headers: Map<String, Header> = emptyMap()
@@ -133,15 +136,15 @@ open class OpenAPIReader {
 
     protected open fun readPaths(openapi: YAML): List<Path> {
         return openapi.getAs<YAML>("paths").map { (path, operations) ->
-            Path(path).apply {
-                (operations as YAML).forEach { (method, operation) ->
-                    if (method !in OPENAPI_OPERATIONS) {
-                        return@forEach
-                    }
-
-                    this.operations.add(readOperation(method, operation as YAML))
+            val operationsSpec = (operations as YAML).map { (method, operation) ->
+                if (method !in OPENAPI_OPERATIONS) {
+                    log.warn("Method '$method' is outside of OpenAPI3 specification")
                 }
+
+                readOperation(method, operation as YAML)
             }
+
+            Path(path, operationsSpec)
         }
     }
 
@@ -182,10 +185,10 @@ open class OpenAPIReader {
         val ref = header.getAs<String?>("\$ref")
         if (ref != null) {
             val headerName = """#/components/headers/(.*)"""
-                    .toRegex()
-                    .find(ref)
-                    ?.groupValues?.get(1)
-                    ?: throw ReaderException("Cannot parse headers reference: $ref")
+                .toRegex()
+                .find(ref)
+                ?.groupValues?.get(1)
+                ?: throw ReaderException("Cannot parse headers reference: $ref")
 
             return headers[headerName] ?: throw UnknownRef(ref)
         }
@@ -220,10 +223,10 @@ open class OpenAPIReader {
         val ref = schema.getAs<String?>("\$ref")
         if (ref != null) {
             val schemaName = """#/components/schemas/(.*)"""
-                    .toRegex()
-                    .find(ref)
-                    ?.groupValues?.get(1)
-                    ?: throw ReaderException("Cannot parse schema reference: $ref")
+                .toRegex()
+                .find(ref)
+                ?.groupValues?.get(1)
+                ?: throw ReaderException("Cannot parse schema reference: $ref")
 
             return schemas[schemaName] ?: throw UnknownRef(ref)
         }

@@ -18,10 +18,12 @@ class OpenAPI(
     override fun toString(): String = StringBuilder().apply {
         appendln("openapi: $version")
         append("paths:")
-        paths.forEach {
+        for(path in paths) {
             appendln()
-            appendln(it.toString().prependIndent(YAML_INDENT))
+            appendln(path.toString().prependIndent(YAML_INDENT))
         }
-        components?.let { append(components.toString()) }
+        components?.let {
+            append(components.toString())
+        }
     }.toString()
 }

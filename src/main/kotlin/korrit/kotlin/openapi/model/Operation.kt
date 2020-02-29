@@ -17,35 +17,43 @@ class Operation(
     /**
      * Returns YAML representation.
      */
-    override fun toString(): String = "$method:" + StringBuilder().apply {
-        if (deprecated) {
-            appendln()
-            append("deprecated: true")
-        }
-        parameters?.let {
-            appendln()
-            append("parameters:")
-            parameters.forEach {
+    override fun toString(): String {
+        val spec = StringBuilder().apply {
+            if (deprecated) {
                 appendln()
-                append("$YAML_INDENT- ")
-                append(
-                    it.toString()
-                        .prependIndent(YAML_INDENT)
-                        .prependIndent("  ")
-                        .substring(YAML_INDENT.length + 2)
-                )
+                append("deprecated: true")
+            }
+            parameters?.let {
+                appendln()
+                append("parameters:")
+                for (parameter in parameters) {
+                    appendln()
+                    append("$YAML_INDENT- ")
+                    append(
+                        parameter.toString()
+                            .prependIndent(YAML_INDENT)
+                            .prependIndent("  ")
+                            .substring(YAML_INDENT.length + 2)
+                    )
+                }
+            }
+            requestBody?.let {
+                appendln()
+                appendln("requestBody:")
+                append(requestBody.toString().prependIndent(YAML_INDENT))
+            }
+            appendln()
+            append("responses:")
+            for (response in responses) {
+                appendln()
+                append(response.toString().prependIndent(YAML_INDENT))
             }
         }
-        requestBody?.let {
-            appendln()
-            appendln("requestBody:")
-            append(requestBody.toString().prependIndent(YAML_INDENT))
+
+        if (spec.isBlank()) {
+            return "$method: {}"
+        } else {
+            return "$method:" + spec.toString().prependIndent(YAML_INDENT)
         }
-        appendln()
-        append("responses:")
-        responses.forEach {
-            appendln()
-            append(it.toString().prependIndent(YAML_INDENT))
-        }
-    }.toString().prependIndent(YAML_INDENT)
+    }
 }

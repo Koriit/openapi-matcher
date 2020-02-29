@@ -31,7 +31,8 @@ class Parameter(
         }
         description?.let {
             appendln()
-            append("description: $it")
+            appendln("description: >-")
+            append(description.prependIndent(YAML_INDENT))
         }
         appendln()
         append("schema:")

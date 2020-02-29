@@ -26,61 +26,73 @@ class Schema(
      *
      * Starts with new line in the beginning.
      */
-    override fun toString(): String = StringBuilder().apply {
-        title?.let {
-            appendln()
-            append("title: $it")
-        }
-        type?.let {
-            appendln()
-            append("type: $type")
-        }
-        if (deprecated) {
-            appendln()
-            append("deprecated: true")
-        }
-
-        if (nullable) {
-            appendln()
-            append("nullable: true")
-        }
-        format?.let {
-            appendln()
-            append("format: $it")
-        }
-        default?.let {
-            appendln()
-            append("default: $it")
-        }
-        if (uniqueItems == true) {
-            appendln()
-            append("uniqueItems: true")
-        }
-        required?.let {
-            appendln()
-            append("required: $required")
-        }
-        properties?.let {
-            appendln()
-            append("properties:")
-            it.forEach { prop ->
+    override fun toString(): String {
+        val spec = StringBuilder().apply {
+            title?.let {
                 appendln()
-                append(prop.toString().prependIndent(YAML_INDENT))
+                append("title: $it")
+            }
+            type?.let {
+                appendln()
+                append("type: $type")
+            }
+            if (deprecated) {
+                appendln()
+                append("deprecated: true")
+            }
+
+            if (nullable) {
+                appendln()
+                append("nullable: true")
+            }
+            format?.let {
+                appendln()
+                append("format: $it")
+            }
+            default?.let {
+                appendln()
+                val value = when (default) {
+                    is String -> default.replace("\"", "\\\"")
+                    else -> default.toString()
+                }
+                append("default: \"$value\"")
+            }
+            if (uniqueItems == true) {
+                appendln()
+                append("uniqueItems: true")
+            }
+            required?.let {
+                appendln()
+                append("required: $required")
+            }
+            properties?.let {
+                appendln()
+                append("properties:")
+                for (property in properties) {
+                    appendln()
+                    append(property.toString().prependIndent(YAML_INDENT))
+                }
+            }
+            additionalProperties?.let {
+                appendln()
+                append("additionalProperties:")
+                append(it.toString().prependIndent(YAML_INDENT))
+            }
+            items?.let {
+                appendln()
+                append("items:")
+                append(it.toString().prependIndent(YAML_INDENT))
+            }
+            enum?.let {
+                appendln()
+                append("enum: $it")
             }
         }
-        additionalProperties?.let {
-            appendln()
-            append("additionalProperties:")
-            append(it.toString().prependIndent(YAML_INDENT))
+
+        if (spec.isBlank()) {
+            return "{}"
+        } else {
+            return spec.toString()
         }
-        items?.let {
-            appendln()
-            append("items:")
-            append(it.toString().prependIndent(YAML_INDENT))
-        }
-        enum?.let {
-            appendln()
-            append("enum: $it")
-        }
-    }.toString()
+    }
 }
