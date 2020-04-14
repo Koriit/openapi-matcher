@@ -3,7 +3,14 @@ package korrit.kotlin.openapi.model
 import korrit.kotlin.openapi.YAML_INDENT
 
 /**
+ * Describes a single response from an API Operation.
+ *
  * Representation of [Response Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responseObject).
+ *
+ * @property code HTTP response code.
+ * @property content Descriptions of potential response payloads
+ * @property description A short description of the response.
+ * @property headers Response headers definitions.
  *
  * @WIP
  */

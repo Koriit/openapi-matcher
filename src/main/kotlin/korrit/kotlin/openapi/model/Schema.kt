@@ -3,7 +3,23 @@ package korrit.kotlin.openapi.model
 import korrit.kotlin.openapi.YAML_INDENT
 
 /**
+ * The Schema Object allows the definition of input and output data types.
+ * These types can be objects, but also primitives and arrays.
+ *
  * Representation of [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject).
+ *
+ * @property title Title of the schema.
+ * @property type Primitive type of the schema.
+ * @property deprecated Specifies that a schema is deprecated and SHOULD be transitioned out of usage.
+ * @property nullable Allows sending a null value for the defined schema.
+ * @property format Interoperable semantic validation for a fixed subset of values which are accurately described by given format.
+ * @property default The default value represents what would be assumed if one is not provided.
+ * @property uniqueItems Requires all of instance's elements to be unique
+ * @property required An object instance is valid against this keyword if its property set contains all elements in this keyword's array value.
+ * @property properties Defines object instance properties.
+ * @property additionalProperties Schema of eventual additional properties.
+ * @property items Schema of instance's elements.
+ * @property enum If present, instance value must be one of elements of this list.
  *
  * @WIP
  */
@@ -26,6 +42,7 @@ class Schema(
      *
      * Starts with new line in the beginning.
      */
+    @Suppress("LongMethod", "ComplexMethod") // There is lots of elements, so naturally this happens
     override fun toString(): String {
         val spec = StringBuilder().apply {
             title?.let {
@@ -89,10 +106,6 @@ class Schema(
             }
         }
 
-        if (spec.isBlank()) {
-            return "{}"
-        } else {
-            return spec.toString()
-        }
+        return if (spec.isBlank()) "{}" else spec.toString()
     }
 }

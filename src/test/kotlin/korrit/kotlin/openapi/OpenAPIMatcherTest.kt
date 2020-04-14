@@ -1,5 +1,7 @@
 package korrit.kotlin.openapi
 
+import java.lang.RuntimeException
+import java.lang.reflect.Field
 import koriit.kotlin.slf4j.logger
 import korrit.kotlin.openapi.model.Components
 import korrit.kotlin.openapi.model.Header
@@ -12,25 +14,18 @@ import korrit.kotlin.openapi.model.Property
 import korrit.kotlin.openapi.model.RequestBody
 import korrit.kotlin.openapi.model.Response
 import korrit.kotlin.openapi.model.Schema
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
-import java.lang.RuntimeException
-import java.lang.reflect.Field
-import kotlin.reflect.KClass
-import kotlin.reflect.KFunction
 import kotlin.reflect.KParameter
-import kotlin.reflect.KProperty1
-import kotlin.reflect.full.instanceParameter
-import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaField
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 internal class OpenAPIMatcherTest {
 
     private val log = logger {}
 
-    val model: List<KClass<*>> = listOf(
+    private val model = listOf(
         // Components::class is only important when resolving references
         Header::class,
         MediaType::class,
@@ -84,7 +79,7 @@ internal class OpenAPIMatcherTest {
 
             log.info("Checking: ${obj::class.simpleName}::${field.name}")
 
-            if(field in exceptions) {
+            if (field in exceptions) {
                 log.info("Skipping exception...")
                 continue
             }
@@ -93,21 +88,17 @@ internal class OpenAPIMatcherTest {
                 field.set(obj, "other $value")
                 assertTrue(spec.checkErrors().isNotEmpty())
                 field.set(obj, value)
-
             } else if (value is Boolean) {
                 field.set(obj, !value)
                 assertTrue(spec.checkErrors().isNotEmpty())
                 field.set(obj, value)
-
             } else if (value::class in model) {
                 verify(spec, value, exceptions)
-
             } else if (value is List<*>) {
                 val elem = value[0]!!
 
                 if (elem::class in model) {
                     verify(spec, elem, exceptions)
-
                 } else if (elem !is String) {
                     throw RuntimeException("Don't know how to verify list of '${elem::class.simpleName}'")
                 }

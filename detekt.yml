@@ -23,6 +23,9 @@ complexity:
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt,**/OpenAPIMatcher.kt,**/OpenAPIReader.kt"
   NestedBlockDepth:
     threshold: 5
+  LongParameterList:
+    active: true
+    constructorThreshold: 30
 
 formatting:
   active: false

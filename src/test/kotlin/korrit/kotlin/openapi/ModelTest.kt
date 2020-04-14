@@ -1,31 +1,9 @@
 package korrit.kotlin.openapi
 
+import java.lang.Exception
 import koriit.kotlin.slf4j.logger
-import korrit.kotlin.openapi.model.Components
-import korrit.kotlin.openapi.model.Header
-import korrit.kotlin.openapi.model.MediaType
-import korrit.kotlin.openapi.model.OpenAPI
-import korrit.kotlin.openapi.model.Operation
-import korrit.kotlin.openapi.model.Parameter
-import korrit.kotlin.openapi.model.Path
-import korrit.kotlin.openapi.model.Property
-import korrit.kotlin.openapi.model.RequestBody
-import korrit.kotlin.openapi.model.Response
-import korrit.kotlin.openapi.model.Schema
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import java.lang.Exception
-import java.lang.RuntimeException
-import java.lang.reflect.Field
-import kotlin.reflect.KClass
-import kotlin.reflect.KFunction
-import kotlin.reflect.KParameter
-import kotlin.reflect.KProperty1
-import kotlin.reflect.full.instanceParameter
-import kotlin.reflect.full.isSubclassOf
-import kotlin.reflect.full.memberFunctions
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.javaField
 
 internal class ModelTest {
 
@@ -48,7 +26,7 @@ internal class ModelTest {
             try {
                 val spec2 = OpenAPIReader().load(spec.toString())
                 assertTrue(OpenAPIMatcher().match(spec, spec2).isEmpty())
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 log.info("\n{}", spec)
                 throw e
             }

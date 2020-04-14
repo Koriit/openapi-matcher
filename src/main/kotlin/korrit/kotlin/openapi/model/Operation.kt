@@ -3,7 +3,15 @@ package korrit.kotlin.openapi.model
 import korrit.kotlin.openapi.YAML_INDENT
 
 /**
+ * Describes a single API operation on a path.
+ *
  * Representation of [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject).
+ *
+ * @property method HTTP method.
+ * @property responses The list of possible responses as they are returned from executing this operation.
+ * @property requestBody The request body applicable for this operation.
+ * @property parameters A list of parameters that are applicable for this operation.
+ * @property deprecated Declares this operation to be deprecated.
  *
  * @WIP
  */

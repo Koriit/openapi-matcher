@@ -3,7 +3,12 @@ package korrit.kotlin.openapi.model
 import korrit.kotlin.openapi.YAML_INDENT
 
 /**
+ * Holds a set of reusable objects for different aspects of the OAS.
+ *
  * Representation of [Components Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#componentsObject).
+ *
+ * @property schemas Reusable Schema Objects, mapped by schema name.
+ * @property headers Reusable Header Objects, mapped by header name.
  *
  * @WIP
  */

@@ -2,8 +2,8 @@
 
 package korrit.kotlin.openapi
 
-import koriit.kotlin.slf4j.logger
 import java.io.InputStream
+import koriit.kotlin.slf4j.logger
 import korrit.kotlin.openapi.exceptions.ReaderException
 import korrit.kotlin.openapi.exceptions.UnknownRef
 import korrit.kotlin.openapi.model.Components
