@@ -1,3 +1,4 @@
 . Consider separating writer from model to promote other writer implementations
 . Move validation to model to promote better code decomposition
 . Implement the rest of OpenAPI elements
+. Improve error handling by specifying paths and types + allow ignoring specific errors
