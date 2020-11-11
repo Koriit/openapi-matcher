@@ -26,16 +26,16 @@ class Header(
     override fun toString(): String {
         val spec = StringBuilder().apply {
             if (required) {
-                appendln()
+                appendLine()
                 append("required: true")
             }
             if (deprecated) {
-                appendln()
+                appendLine()
                 append("deprecated: true")
             }
             val schemaSpec = schema.toString()
             if (schemaSpec.isNotBlank()) {
-                appendln()
+                appendLine()
                 append("schema:")
                 append(schemaSpec.prependIndent(YAML_INDENT))
             }

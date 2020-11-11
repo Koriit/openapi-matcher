@@ -22,7 +22,7 @@ class Path(
     override fun toString(): String = StringBuilder().apply {
         append("$path:")
         for (operation in operations) {
-            appendln()
+            appendLine()
             append(operation.toString().prependIndent(YAML_INDENT))
         }
     }.toString()

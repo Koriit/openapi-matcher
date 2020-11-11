@@ -25,26 +25,26 @@ class Response(
      */
     override fun toString(): String {
         val spec = StringBuilder().apply {
-            appendln()
-            appendln("description: >-")
+            appendLine()
+            appendLine("description: >-")
             append(description.prependIndent(YAML_INDENT))
             headers?.let {
-                appendln()
+                appendLine()
                 append("headers:")
                 val out = StringBuilder()
                 for (header in headers) {
                     out.apply {
-                        appendln()
+                        appendLine()
                         append(header.toString())
                     }
                 }
                 append(out.toString().prependIndent(YAML_INDENT))
             }
             content?.let {
-                appendln()
+                appendLine()
                 append("content:")
                 for (media in content) {
-                    appendln()
+                    appendLine()
                     append(media.toString().prependIndent(YAML_INDENT))
                 }
             }

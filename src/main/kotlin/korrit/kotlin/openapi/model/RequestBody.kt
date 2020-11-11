@@ -22,11 +22,11 @@ class RequestBody(
     override fun toString(): String = StringBuilder().apply {
         if (required) {
             append("required: true")
-            appendln()
+            appendLine()
         }
         append("content:")
         for (media in content) {
-            appendln()
+            appendLine()
             append(media.toString().prependIndent(YAML_INDENT))
         }
     }.toString()

@@ -46,28 +46,28 @@ class Schema(
     override fun toString(): String {
         val spec = StringBuilder().apply {
             title?.let {
-                appendln()
+                appendLine()
                 append("title: $it")
             }
             type?.let {
-                appendln()
+                appendLine()
                 append("type: $type")
             }
             if (deprecated) {
-                appendln()
+                appendLine()
                 append("deprecated: true")
             }
 
             if (nullable) {
-                appendln()
+                appendLine()
                 append("nullable: true")
             }
             format?.let {
-                appendln()
+                appendLine()
                 append("format: $it")
             }
             default?.let {
-                appendln()
+                appendLine()
                 val value = when (default) {
                     is String -> default.replace("\"", "\\\"")
                     else -> default.toString()
@@ -75,33 +75,33 @@ class Schema(
                 append("default: \"$value\"")
             }
             if (uniqueItems == true) {
-                appendln()
+                appendLine()
                 append("uniqueItems: true")
             }
             required?.let {
-                appendln()
+                appendLine()
                 append("required: $required")
             }
             properties?.let {
-                appendln()
+                appendLine()
                 append("properties:")
                 for (property in properties) {
-                    appendln()
+                    appendLine()
                     append(property.toString().prependIndent(YAML_INDENT))
                 }
             }
             additionalProperties?.let {
-                appendln()
+                appendLine()
                 append("additionalProperties:")
                 append(it.toString().prependIndent(YAML_INDENT))
             }
             items?.let {
-                appendln()
+                appendLine()
                 append("items:")
                 append(it.toString().prependIndent(YAML_INDENT))
             }
             enum?.let {
-                appendln()
+                appendLine()
                 append("enum: $it")
             }
         }

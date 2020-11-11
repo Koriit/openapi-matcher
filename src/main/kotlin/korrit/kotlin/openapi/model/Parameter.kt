@@ -28,22 +28,22 @@ class Parameter(
      * Returns YAML representation.
      */
     override fun toString(): String = StringBuilder().apply {
-        appendln("name: $name")
+        appendLine("name: $name")
         append("in: $inside")
         if (required) {
-            appendln()
+            appendLine()
             append("required: true")
         }
         if (deprecated) {
-            appendln()
+            appendLine()
             append("deprecated: true")
         }
         description?.let {
-            appendln()
-            appendln("description: >-")
+            appendLine()
+            appendLine("description: >-")
             append(description.prependIndent(YAML_INDENT))
         }
-        appendln()
+        appendLine()
         append("schema:")
         append(schema.toString().prependIndent(YAML_INDENT))
     }.toString()

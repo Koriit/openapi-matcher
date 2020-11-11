@@ -24,7 +24,7 @@ class MediaType(
             schema?.let {
                 val schemaSpec = schema.toString()
                 if (schemaSpec.isNotBlank()) {
-                    appendln()
+                    appendLine()
                     append("schema:")
                     append(schemaSpec.prependIndent(YAML_INDENT))
                 }

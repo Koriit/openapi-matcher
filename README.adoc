@@ -5,18 +5,19 @@ image:https://www.codefactor.io/repository/github/koriit/openapi-matcher/badge[C
 image:https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg[ktlint,link=https://ktlint.github.io/]
 
 image:https://api.bintray.com/packages/koriit/kotlin/openapi-matcher/images/download.svg[Download, link=https://bintray.com/koriit/kotlin/openapi-matcher/_latestVersion]
+image:https://img.shields.io/badge/kotlin-1.4.10-blue.svg?logo=kotlin[Kotlin, link=http://kotlinlang.org]
 image:https://img.shields.io/github/license/koriit/openapi-matcher[GitHub]
 
-OpenAPI matcher for Kotlin, allows to compare 2 specifications against each other.
+OpenAPI matcher for Kotlin allows comparing 2 specifications against each other.
 
 [WARNING]
-This library in *Work In Progress*. It doesn't support all elements of OpenAPI specification yet. Support scope can be
-checked individually for every OpenAPI specification object in `korrit.kotlin.openapi.model` package.
+This library in *Work In Progress*. It doesn't support all elements of OpenAPI specification yet. The support scope can be
+checked individually for every OpenAPI specification object in the `korrit.kotlin.openapi.model` package.
 
 
 == Reading OpenAPI
-This library includes OpenAPI reader that allows to parse your OpenAPI specification in YAML format into
-in-memory object that can be used in matcher.
+This library includes an OpenAPI reader that allows parsing your OpenAPI specification in YAML format into
+an in-memory object that can be used in a matcher.
 
 [source,kotlin]
 ----
@@ -29,7 +30,7 @@ Unsupported elements are ignored.
 == Validating OpenAPI
 Once you have 2 OpenAPI objects you can match them checking for any significant differences.
 
-Significant difference is understood as divergence that leads or may lead to compatibility break.
+A significant difference is understood as a divergence that leads to or may lead to a compatibility break.
 
 The general idea is to validate your OpenAPI specification against your code instead of spec/code generation.
 

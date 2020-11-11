@@ -22,12 +22,12 @@ class Components(
     override fun toString(): String {
         val spec = StringBuilder().apply {
             schemas?.let {
-                appendln()
+                appendLine()
                 append("schemas:")
                 val out = StringBuilder()
                 for ((name, schema) in schemas) {
                     out.apply {
-                        appendln()
+                        appendLine()
                         append("$name:")
                         append(schema.toString().prependIndent(YAML_INDENT))
                     }
@@ -36,12 +36,12 @@ class Components(
             }
 
             headers?.let {
-                appendln()
+                appendLine()
                 append("headers:")
                 val out = StringBuilder()
                 for ((_, header) in headers) {
                     out.apply {
-                        appendln()
+                        appendLine()
                         append(header.toString())
                     }
                 }

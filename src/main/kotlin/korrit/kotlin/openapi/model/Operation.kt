@@ -28,14 +28,14 @@ class Operation(
     override fun toString(): String {
         val spec = StringBuilder().apply {
             if (deprecated) {
-                appendln()
+                appendLine()
                 append("deprecated: true")
             }
             parameters?.let {
-                appendln()
+                appendLine()
                 append("parameters:")
                 for (parameter in parameters) {
-                    appendln()
+                    appendLine()
                     append("$YAML_INDENT- ")
                     append(
                         parameter.toString()
@@ -46,14 +46,14 @@ class Operation(
                 }
             }
             requestBody?.let {
-                appendln()
-                appendln("requestBody:")
+                appendLine()
+                appendLine("requestBody:")
                 append(requestBody.toString().prependIndent(YAML_INDENT))
             }
-            appendln()
+            appendLine()
             append("responses:")
             for (response in responses) {
-                appendln()
+                appendLine()
                 append(response.toString().prependIndent(YAML_INDENT))
             }
         }

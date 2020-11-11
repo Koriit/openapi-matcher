@@ -22,11 +22,11 @@ class OpenAPI(
      * Returns YAML representation.
      */
     override fun toString(): String = StringBuilder().apply {
-        appendln("openapi: $version")
+        appendLine("openapi: $version")
         append("paths:")
         for (path in paths) {
-            appendln()
-            appendln(path.toString().prependIndent(YAML_INDENT))
+            appendLine()
+            appendLine(path.toString().prependIndent(YAML_INDENT))
         }
         components?.let {
             append(components.toString())
