@@ -2,8 +2,7 @@
 
 package korrit.kotlin.openapi
 
-import java.io.InputStream
-import koriit.kotlin.slf4j.logger
+import com.koriit.kotlin.slf4j.logger
 import korrit.kotlin.openapi.exceptions.ReaderException
 import korrit.kotlin.openapi.exceptions.UnknownRef
 import korrit.kotlin.openapi.model.Components
@@ -18,6 +17,7 @@ import korrit.kotlin.openapi.model.RequestBody
 import korrit.kotlin.openapi.model.Response
 import korrit.kotlin.openapi.model.Schema
 import org.yaml.snakeyaml.Yaml
+import java.io.InputStream
 
 private typealias YAML = Map<String, Any>
 
@@ -41,7 +41,10 @@ open class OpenAPIReader {
      *
      * @throws ReaderException in case of any failure
      */
-    @Suppress("TooGenericExceptionCaught") // Intended
+    @Suppress(
+        "TooGenericExceptionCaught", // Intended
+        "RethrowCaughtException" // FIXME, possible false-positive of detekt
+    )
     open fun load(file: InputStream): OpenAPI {
         try {
             val openapi: YAML = Yaml().load(file)

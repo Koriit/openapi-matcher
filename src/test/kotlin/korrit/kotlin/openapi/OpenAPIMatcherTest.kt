@@ -1,8 +1,6 @@
 package korrit.kotlin.openapi
 
-import java.lang.RuntimeException
-import java.lang.reflect.Field
-import koriit.kotlin.slf4j.logger
+import com.koriit.kotlin.slf4j.logger
 import korrit.kotlin.openapi.model.Components
 import korrit.kotlin.openapi.model.Header
 import korrit.kotlin.openapi.model.MediaType
@@ -14,12 +12,13 @@ import korrit.kotlin.openapi.model.Property
 import korrit.kotlin.openapi.model.RequestBody
 import korrit.kotlin.openapi.model.Response
 import korrit.kotlin.openapi.model.Schema
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import java.lang.reflect.Field
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaField
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
 
 internal class OpenAPIMatcherTest {
 
@@ -100,20 +99,21 @@ internal class OpenAPIMatcherTest {
                 if (elem::class in model) {
                     verify(spec, elem, exceptions)
                 } else if (elem !is String) {
-                    throw RuntimeException("Don't know how to verify list of '${elem::class.simpleName}'")
+                    throw AssertionError("Don't know how to verify list of '${elem::class.simpleName}'")
                 }
 
                 field.set(obj, listOf<String>())
                 assertTrue(spec.checkErrors().isNotEmpty())
                 field.set(obj, value)
             } else {
-                throw RuntimeException("Don't know how to verify '${value::class.simpleName}'")
+                throw AssertionError("Don't know how to verify '${value::class.simpleName}'")
             }
         }
     }
 
     private fun OpenAPI.checkErrors() = OpenAPIMatcher().match(this, newOpenAPI())
 
+    @Suppress("LongMethod")
     internal fun newOpenAPI() = OpenAPI(
         version = "string",
         paths = listOf(

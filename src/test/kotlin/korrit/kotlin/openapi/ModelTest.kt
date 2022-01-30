@@ -1,9 +1,9 @@
 package korrit.kotlin.openapi
 
-import java.lang.Exception
-import koriit.kotlin.slf4j.logger
+import com.koriit.kotlin.slf4j.logger
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import java.lang.Exception
 
 internal class ModelTest {
 

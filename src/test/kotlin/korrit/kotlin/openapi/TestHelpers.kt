@@ -1,6 +1,6 @@
 package korrit.kotlin.openapi
 
-import koriit.kotlin.slf4j.logger
+import com.koriit.kotlin.slf4j.logger
 
 private val log = logger {}
 
