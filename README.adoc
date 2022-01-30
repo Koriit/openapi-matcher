@@ -1,12 +1,14 @@
 = OpenAPI Matcher
 
-image:https://www.travis-ci.org/Koriit/openapi-matcher.svg?branch=master["Build Status", link="https://www.travis-ci.org/Koriit/openapi-matcher"]
+image:https://github.com/Koriit/openapi-matcher/actions/workflows/build.yaml/badge.svg[Build, link="https://github.com/Koriit/openapi-matcher/actions/workflows/build.yaml"]
 image:https://www.codefactor.io/repository/github/koriit/openapi-matcher/badge[CodeFactor,link=https://www.codefactor.io/repository/github/koriit/openapi-matcher]
 image:https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg[ktlint,link=https://ktlint.github.io/]
 
-image:https://api.bintray.com/packages/koriit/kotlin/openapi-matcher/images/download.svg[Download, link=https://bintray.com/koriit/kotlin/openapi-matcher/_latestVersion]
 image:https://img.shields.io/badge/kotlin-1.4.10-blue.svg?logo=kotlin[Kotlin, link=http://kotlinlang.org]
+image:https://img.shields.io/maven-central/v/com.koriit.kotlin/openapi-matcher.svg?label=Maven%20Central[Maven Central, link="https://search.maven.org/search?q=g:%22com.koriit.kotlin%22%20AND%20a:%22openapi-matcher%22"]
 image:https://img.shields.io/github/license/koriit/openapi-matcher[GitHub]
+
+WARNING: From version 0.7.0 all package names have been renamed to match new artifact group id.
 
 OpenAPI matcher for Kotlin allows comparing 2 specifications against each other.
 
