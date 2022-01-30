@@ -1,4 +1,4 @@
-package korrit.kotlin.openapi.exceptions
+package com.korrit.kotlin.openapi.exceptions
 
 /**
  * Thrown when reference cannot bo resolved.

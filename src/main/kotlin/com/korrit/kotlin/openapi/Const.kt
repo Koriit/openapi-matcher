@@ -1,4 +1,4 @@
-package korrit.kotlin.openapi
+package com.korrit.kotlin.openapi
 
 /** Indentation used when writing OpenAPI document. */
 const val YAML_INDENT = "  "

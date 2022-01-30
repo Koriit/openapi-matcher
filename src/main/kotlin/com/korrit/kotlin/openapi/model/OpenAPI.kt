@@ -1,6 +1,6 @@
-package korrit.kotlin.openapi.model
+package com.korrit.kotlin.openapi.model
 
-import korrit.kotlin.openapi.YAML_INDENT
+import com.korrit.kotlin.openapi.YAML_INDENT
 
 /**
  * This is the root document object of the OpenAPI document.

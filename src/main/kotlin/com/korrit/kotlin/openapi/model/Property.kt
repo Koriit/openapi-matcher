@@ -1,6 +1,6 @@
-package korrit.kotlin.openapi.model
+package com.korrit.kotlin.openapi.model
 
-import korrit.kotlin.openapi.YAML_INDENT
+import com.korrit.kotlin.openapi.YAML_INDENT
 
 /**
  * Pair of key and [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject).

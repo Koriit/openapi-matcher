@@ -1,4 +1,4 @@
-package korrit.kotlin.openapi.exceptions
+package com.korrit.kotlin.openapi.exceptions
 
 /**
  * Generic exception of OpenAPI reading.

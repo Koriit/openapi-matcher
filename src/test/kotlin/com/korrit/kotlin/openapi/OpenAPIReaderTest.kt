@@ -1,4 +1,4 @@
-package korrit.kotlin.openapi
+package com.korrit.kotlin.openapi
 
 import org.junit.jupiter.api.Test
 

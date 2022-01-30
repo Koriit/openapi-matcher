@@ -1,6 +1,6 @@
-package korrit.kotlin.openapi.model
+package com.korrit.kotlin.openapi.model
 
-import korrit.kotlin.openapi.YAML_INDENT
+import com.korrit.kotlin.openapi.YAML_INDENT
 
 /**
  * Holds a set of reusable objects for different aspects of the OAS.

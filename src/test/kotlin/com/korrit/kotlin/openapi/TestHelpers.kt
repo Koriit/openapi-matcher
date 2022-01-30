@@ -1,4 +1,4 @@
-package korrit.kotlin.openapi
+package com.korrit.kotlin.openapi
 
 import com.koriit.kotlin.slf4j.logger
 

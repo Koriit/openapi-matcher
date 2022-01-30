@@ -1,21 +1,21 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package korrit.kotlin.openapi
+package com.korrit.kotlin.openapi
 
 import com.koriit.kotlin.slf4j.logger
-import korrit.kotlin.openapi.exceptions.ReaderException
-import korrit.kotlin.openapi.exceptions.UnknownRef
-import korrit.kotlin.openapi.model.Components
-import korrit.kotlin.openapi.model.Header
-import korrit.kotlin.openapi.model.MediaType
-import korrit.kotlin.openapi.model.OpenAPI
-import korrit.kotlin.openapi.model.Operation
-import korrit.kotlin.openapi.model.Parameter
-import korrit.kotlin.openapi.model.Path
-import korrit.kotlin.openapi.model.Property
-import korrit.kotlin.openapi.model.RequestBody
-import korrit.kotlin.openapi.model.Response
-import korrit.kotlin.openapi.model.Schema
+import com.korrit.kotlin.openapi.exceptions.ReaderException
+import com.korrit.kotlin.openapi.exceptions.UnknownRef
+import com.korrit.kotlin.openapi.model.Components
+import com.korrit.kotlin.openapi.model.Header
+import com.korrit.kotlin.openapi.model.MediaType
+import com.korrit.kotlin.openapi.model.OpenAPI
+import com.korrit.kotlin.openapi.model.Operation
+import com.korrit.kotlin.openapi.model.Parameter
+import com.korrit.kotlin.openapi.model.Path
+import com.korrit.kotlin.openapi.model.Property
+import com.korrit.kotlin.openapi.model.RequestBody
+import com.korrit.kotlin.openapi.model.Response
+import com.korrit.kotlin.openapi.model.Schema
 import org.yaml.snakeyaml.Yaml
 import java.io.InputStream
 

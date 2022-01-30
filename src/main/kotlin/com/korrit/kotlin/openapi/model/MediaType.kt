@@ -1,6 +1,6 @@
-package korrit.kotlin.openapi.model
+package com.korrit.kotlin.openapi.model
 
-import korrit.kotlin.openapi.YAML_INDENT
+import com.korrit.kotlin.openapi.YAML_INDENT
 
 /**
  * Each Media Type Object provides schema and examples for the media type identified by its key.
